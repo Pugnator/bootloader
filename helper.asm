@@ -1,18 +1,20 @@
-
-_reboot:
+%ifndef HELPER_ASM 
+%define HELPER_ASM 
+reboot:
 	int 16h
 	int 19h
 
 _printC:
-	mov bp,sp
+	push bp	
+	mov cx, 1
 	mov ah, 0ah
 	mov bx,0h
 	int 10h
-	mov sp,bp
+	pop bp
 	ret
 
-_printS:
-	mov bp,sp
+_printS:	
+	push bp
 cont:
 	lodsb
 	or al,al
@@ -22,7 +24,7 @@ cont:
 	int 10h
 	jmp cont
 dne:
-	mov sp,bp
+	pop bp	
 	ret
 
 _cursor_off:
@@ -36,3 +38,11 @@ anykey:
 	mov ah, 0h
 	int 16h
 	ret
+
+ldsec:
+	push bp
+
+	pop bp
+	ret
+
+%endif
