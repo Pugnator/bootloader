@@ -2,8 +2,8 @@
 [org 0]
 
 jmp 0x7c0:start
-%include "macro.S"
-%include "helper.S"
+%include "macro.asm"
+%include "helper.asm"
 
 start:		
 	push cs
