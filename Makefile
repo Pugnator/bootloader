@@ -1,5 +1,5 @@
 ASM:=nasm
-SRC=bootloader.S
+SRC=bootloader.asm
 EXEC:=bootloader.com
 RAWIMAGE:=disk.img
 IMAGESIZE:=1
