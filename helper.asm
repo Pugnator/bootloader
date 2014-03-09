@@ -1,20 +1,25 @@
 %ifndef HELPER_ASM 
 %define HELPER_ASM 
+
+%define kernel_offset 0x008000
+%define kernel_start 0x01000000
+%define kernel_size 22405
+
 reboot:
 	int 16h
 	int 19h
 
 _printC:
-	push bp	
+	mov bp, sp
 	mov cx, 1
 	mov ah, 0ah
 	mov bx,0h
 	int 10h
-	pop bp
+	mov sp, bp
 	ret
 
 _printS:	
-	push bp
+	mov bp, sp
 cont:
 	lodsb
 	or al,al
@@ -24,10 +29,10 @@ cont:
 	int 10h
 	jmp cont
 dne:
-	pop bp	
+	mov sp, bp	
 	ret
 
-_cursor_off:
+cursor_off:
 	mov dh,25
 	mov dl,0h
 	mov ah,2h
@@ -39,10 +44,10 @@ anykey:
 	int 16h
 	ret
 
-ldsec:
-	push bp
-
-	pop bp
+load_kernel:	
+	jmp err
 	ret
-
+err:
+	prints(kernel_load_error_msg)
+	ret
 %endif

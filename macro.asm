@@ -1,8 +1,6 @@
 %ifndef MACRO_ASM
 %define MACRO_ASM
 
-%define kernel_offset 0x008000
-%define kernel_start 0x01000000
 %define CUR_ROW dh
 %define CUR_COL dl
 %define KBD_KEY al
@@ -23,11 +21,6 @@ col db 0
 	mov al, 3
 	mov ah, 0
 	int 10h	
-%endmacro
-
-%imacro forever 0
-%%loop:
-	jmp %%loop
 %endmacro
 
 %imacro readchar 0	
